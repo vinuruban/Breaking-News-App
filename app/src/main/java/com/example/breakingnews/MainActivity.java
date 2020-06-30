@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,14 +72,15 @@ public class MainActivity extends AppCompatActivity {
             emptyStateTextView.setText(R.string.no_internet_connection);
         }
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(MainActivity.this, NotesActivity.class);
-//                intent.putExtra("notesPosition", position);
-//                startActivity(intent);
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            // The code in this method will be executed when the numbers category is clicked on.
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NewsObject currentNews = adapter.getItem(position);
+                Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse(currentNews.getUrl()));
+                startActivity(implicit);
+            }
+        });
 
 //        final EditText editText = (EditText) findViewById(R.id.editText);
 //        Button button = (Button) findViewById(R.id.button);
