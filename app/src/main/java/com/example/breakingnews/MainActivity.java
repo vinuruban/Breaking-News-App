@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -77,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NewsObject currentNews = adapter.getItem(position);
-                Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse(currentNews.getUrl()));
-                startActivity(implicit);
+                Intent intent = new Intent(MainActivity.this, WebActivity.class);
+                intent.putExtra("url", currentNews.getUrl()); //THIS WILL PASS POSITION NUMBER TO THE MAP ACTIVITY TO HELP THAT ACTIVITY OBTAIN THE latLngList FROM THIS ACTIVITY!
+                startActivity(intent);
             }
         });
 
