@@ -84,57 +84,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        final EditText editText = (EditText) findViewById(R.id.editText);
-//        Button button = (Button) findViewById(R.id.button);
-//        button.setOnClickListener(new AdapterView.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                String text = editText.getText().toString();
-//                String convertText = text.replaceAll(" ", "+").toLowerCase();
-//                url = urlAttachment + convertText;
-//
-//                View loadingIndicator = findViewById(R.id.loading_indicator);
-//                loadingIndicator.setVisibility(View.VISIBLE);
-//
-//                // Create a new adapter that takes an EMPTY list of books as input
-//                adapter = new BookAdapter(MainActivity.this, new ArrayList<BookObject>());
-//
-//                final ListView bookListView = (ListView) findViewById(R.id.list);
-//
-//                // Set the adapter on the {@link ListView}
-//                // so the list can be populated in the user interface
-//                bookListView.setAdapter(adapter);
-//
-//                //Below is the view that will be viewed if there is no internet connection or no data retrieved
-//                emptyStateTextView = (TextView) findViewById(R.id.empty_view);
-//                bookListView.setEmptyView(emptyStateTextView);
-//
-//                // Get a reference to the ConnectivityManager to check state of network connectivity
-//                ConnectivityManager connMgr = (ConnectivityManager)
-//                        getSystemService(Context.CONNECTIVITY_SERVICE);
-//                // Get details on the currently active default data network
-//                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-//
-//                // If there is a network connection, fetch data
-//                if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
-//                    // Start the AsyncTask to fetch the earthquake data
-//                    BookAsyncTask task = new BookAsyncTask();
-//                    task.execute(url);
-//                    Log.e(LOG_TAG, "Passes BookAsyncTask call");
-//                } else {
-//                    // Otherwise, display error
-//                    // First, hide loading indicator so error message will be visible
-//                    loadingIndicator.setVisibility(View.GONE);
-//
-//                    // Update empty state with no connection error message
-//                    emptyStateTextView.setText(R.string.no_internet_connection);
-//                }
-//
-//            }
-//        });
-
     }
+
 
     private class NewsAsyncTask extends AsyncTask<String, Void, List<NewsObject>> {
 
