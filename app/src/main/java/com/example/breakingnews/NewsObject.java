@@ -1,22 +1,20 @@
 package com.example.breakingnews;
 
-import android.graphics.Bitmap;
-
 public class NewsObject {
 
-    private String id;
+    private long id;
     private String time;
     private String description;
     private String url;
 
-    public NewsObject(String id,String time, String description, String url) {
+    public NewsObject(long id,String time, String description, String url) {
+        this.id = id;
         this.time = time;
         this.description = description;
         this.url = url;
-        this.id = id;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 

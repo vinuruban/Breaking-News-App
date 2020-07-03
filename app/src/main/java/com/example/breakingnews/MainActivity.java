@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a new adapter that takes an EMPTY list of books as input
         adapter = new NewsAdapter(MainActivity.this, new ArrayList<NewsObject>());
 
-        final ListView listView = (ListView) findViewById(R.id.list);
+        ListView listView = (ListView) findViewById(R.id.list);
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface

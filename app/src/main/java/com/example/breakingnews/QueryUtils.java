@@ -1,7 +1,5 @@
 package com.example.breakingnews;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -17,9 +15,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class QueryUtils {
 
@@ -210,7 +209,7 @@ public class QueryUtils {
             return null;
         }
 
-        String id = "";
+        long id = 0;
         String time = "";
         String title = "";
         String url = "";
@@ -222,9 +221,21 @@ public class QueryUtils {
             // Create a JSONObject from the JSON response string
             JSONObject jsonObj = new JSONObject(newsJSON);
 
-            id = jsonObj.getString("id");
+            id = Long.parseLong(jsonObj.getString("id"));
 
-            time = jsonObj.getString("time");
+            //coverts the int into a proper date
+            long date = jsonObj.getLong("time");
+            Date dateObject = new Date(date);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM DD, yyyy");
+            String dateToDisplay = dateFormatter.format(dateObject);
+
+            //coverts the int into a proper date
+            long timee = jsonObj.getLong("time");
+            Date timeObject = new Date(timee);
+            SimpleDateFormat timeFormatter = new SimpleDateFormat("h:mm a");
+            String timeToDisplay = timeFormatter.format(timeObject);
+
+            time = dateToDisplay + " -- " + timeToDisplay;
 
             title = jsonObj.getString("title");
 

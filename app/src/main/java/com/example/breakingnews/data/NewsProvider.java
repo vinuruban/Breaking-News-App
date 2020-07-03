@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.breakingnews.data.NewsContract.NewsEntry;
 
 public class NewsProvider extends ContentProvider {
@@ -128,26 +131,6 @@ public class NewsProvider extends ContentProvider {
      */
     private Uri insertNews(Uri uri, ContentValues values) {
 
-        // LEFT THE CODE BELOW IN CASE VALIDATION NEEDED IN THE CONTENT PROVIDER IN THE FUTURE. CURRENTLY, VALIDATION IS IN THE insertOrUpdatePet() OF EDITOR ACTIVITY.
-
-//        // Data Validation - Check that the name is not null
-//        String name = values.getAsString(PetEntry.COLUMN_NAME);
-//        if (name.equals("")) {
-//            throw new IllegalArgumentException("Pet requires a name");
-//        }
-//
-//        // Data Validation - Check that the breed is not null
-//        String breed = values.getAsString(PetEntry.COLUMN_BREED);
-//        if (breed.equals("")) {
-//            throw new IllegalArgumentException("Pet requires a breed");
-//        }
-//
-//        // Data Validation - Check that the weight is not null
-//        Integer weight = values.getAsInteger(PetEntry.COLUMN_WEIGHT);
-//        if (weight == null) {
-//            throw new IllegalArgumentException("Pet requires valid weight");
-//        }
-
         // Get writeable database
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
@@ -167,118 +150,19 @@ public class NewsProvider extends ContentProvider {
     }
 
     /**
-     * Updates the data at the given selection and selection arguments, with the new ContentValues.
+     * NOT REQUIRED
      */
     @Override
-    public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
-        final int match = sUriMatcher.match(uri);
-        switch (match) {
-            case NEWS:
-                return updateNews(uri, contentValues, selection, selectionArgs);
-            case NEWS_ID:
-                // For the PET_ID code, extract out the ID from the URI,
-                // so we know which row to update. Selection will be "_id=?" and selection
-                // arguments will be a String array containing the actual ID.
-                selection = NewsEntry.COLUMN_ID + "=?";
-                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                return updateNews(uri, contentValues, selection, selectionArgs);
-            default:
-                throw new IllegalArgumentException("Update is not supported for " + uri);
-        }
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        return 0;
     }
 
     /**
-     * Update pets in the database with the given content values. Apply the changes to the rows
-     * specified in the selection and selection arguments (which could be 0 or 1 or more pets).
-     * Return the number of rows that were successfully updated.
-     */
-    private int updateNews(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-
-        // LEFT THE CODE BELOW IN CASE VALIDATION NEEDED IN THE CONTENT PROVIDER IN THE FUTURE. CURRENTLY, VALIDATION IS IN THE insertOrUpdatePet() OF EDITOR ACTIVITY.
-
-//        // If the {@link PetEntry#COLUMN_PET_NAME} key is present,
-//        // check that the name value is not null.
-//        if (values.containsKey(PetEntry.COLUMN_NAME)) { //CHECKS IF ATTRIBUTE IS PRESENT OR NOT
-//            String name = values.getAsString(PetEntry.COLUMN_NAME);
-//            if (name.equals("")) {
-//                throw new IllegalArgumentException("Pet requires a name");
-//            }
-//        }
-//
-//        // If the {@link PetEntry#COLUMN_PET_GENDER} key is present,
-//        // check that the weight value is not null.
-//        if (values.containsKey(PetEntry.COLUMN_BREED)) {
-//            String breed = values.getAsString(PetEntry.COLUMN_BREED);
-//            if (breed.equals("")) {
-//                throw new IllegalArgumentException("Pet requires a breed");
-//            }
-//        }
-//        Log.i("PetProvider", "insertOrUpdatePet: " );
-//
-//        // If the {@link PetEntry#COLUMN_PET_WEIGHT} key is present,
-//        // check that the weight value is valid.
-//        if (values.containsKey(PetEntry.COLUMN_WEIGHT)) {
-//            Integer weight = values.getAsInteger(PetEntry.COLUMN_WEIGHT);
-//            if (weight == null) {
-//                throw new IllegalArgumentException("Pet requires valid weight");
-//            }
-//        }
-//
-//        // If there are no values to update, then don't try to update the database
-//        if (values.size() == 0) {
-//            return 0;
-//        }
-
-        // Otherwise, get writeable database to update the data
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-
-        // Returns the number of database rows affected by the update statement
-        int rowsUpdated = database.update(NewsEntry.TABLE_NAME, values, selection, selectionArgs);
-
-        if (rowsUpdated != 0) {
-            //NOTIFY ALL LISTENERS THAT THE DATA HAS CHANGED FOR THE PET CONTENT URI
-            getContext().getContentResolver().notifyChange(uri, null);
-        }
-
-        // Return the number of rows updated
-        return rowsUpdated;
-    }
-
-    /**
-     * Delete the data at the given selection and selection arguments.
+     * NOT REQUIRED
      */
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Get writeable database
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-
-        final int match = sUriMatcher.match(uri);
-
-        // Track the number of rows that were deleted
-        int rowsDeleted;
-
-        switch (match) {
-            case NEWS:
-                // Delete all rows that match the selection and selection args
-                rowsDeleted = database.delete(NewsEntry.TABLE_NAME, selection, selectionArgs);
-                break;
-            case NEWS_ID:
-                // Delete a single row given by the ID in the URI
-                selection = NewsEntry.COLUMN_ID + "=?";
-                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                rowsDeleted = database.delete(NewsEntry.TABLE_NAME, selection, selectionArgs);
-                break;
-            default:
-                throw new IllegalArgumentException("Deletion is not supported for " + uri);
-        }
-
-        if (rowsDeleted != 0) {
-            //NOTIFY ALL LISTENERS THAT THE DATA HAS CHANGED (DECREASED) FOR THE PET CONTENT URI
-            getContext().getContentResolver().notifyChange(uri, null);
-        }
-
-        // Return the number of rows updated
-        return rowsDeleted;
+    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+        return 0;
     }
 
     /**
