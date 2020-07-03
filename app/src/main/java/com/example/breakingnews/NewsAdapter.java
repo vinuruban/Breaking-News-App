@@ -60,9 +60,6 @@ public class NewsAdapter extends ArrayAdapter<NewsObject> {
 
         Cursor cursor = getContext().getContentResolver().query(NewsEntry.CONTENT_URI, null, null, null, null);
 
-//        //MOVE TO FIRST ROW
-//        cursor.moveToFirst();
-
         //IF DB IS EMPTY AND NO DATA IS FOUND, CURSOR WILL BE EMPTY, THUS STORE ALL DATA
         if (cursor == null) {
             insertNews();
@@ -77,7 +74,7 @@ public class NewsAdapter extends ArrayAdapter<NewsObject> {
             //LOOP THROUGH EACH ROW AND COMPARE ID TO currentNews.getId()
             while (cursor.moveToNext()) {
                 String id = cursor.getString(nameColumnIndex);
-                Log.i("ewewr", "loop: " + id);
+                //IF IDs MATCH, DATA EXISTS
                 if (id.equals("" + currentNews.getId())) {
                     dataExists = true;
                 }
@@ -85,12 +82,12 @@ public class NewsAdapter extends ArrayAdapter<NewsObject> {
             //CLEAN CURSOR
             cursor.close();
 
-            //IF DATA ALREADY EXISTS, DONT ADD AGAIN. ELSE, ADD DATA.
+            //IF DATA ALREADY EXISTS, DON'T ADD AGAIN. ELSE, ADD DATA.
             if (dataExists == false) {
                 insertNews();
             }
             else{
-                Toast.makeText(getContext(), "New news not found - not stored to SQLite database",
+                Toast.makeText(getContext(), "Not a new news - won't be stored in SQLite database again",
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -112,7 +109,7 @@ public class NewsAdapter extends ArrayAdapter<NewsObject> {
                     Toast.LENGTH_SHORT).show();
         } else {
             // Otherwise, the insertion was successful and we can display a toast.
-            Toast.makeText(getContext(), "Latest news stored in SQLite database",
+            Toast.makeText(getContext(), "New news found - stored in the SQLite database",
                     Toast.LENGTH_SHORT).show();
         }
     }
