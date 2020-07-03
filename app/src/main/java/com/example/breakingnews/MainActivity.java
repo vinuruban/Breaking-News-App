@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private class NewsAsyncTask extends AsyncTask<String, Void, List<NewsObject>> {
 
         @Override
