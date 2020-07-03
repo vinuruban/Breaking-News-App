@@ -210,6 +210,7 @@ public class QueryUtils {
             return null;
         }
 
+        String id = "";
         String time = "";
         String title = "";
         String url = "";
@@ -220,6 +221,8 @@ public class QueryUtils {
         try {
             // Create a JSONObject from the JSON response string
             JSONObject jsonObj = new JSONObject(newsJSON);
+
+            id = jsonObj.getString("id");
 
             time = jsonObj.getString("time");
 
@@ -235,7 +238,7 @@ public class QueryUtils {
             }
 
             // Return the list of books
-        return new NewsObject(time, title, url);
+        return new NewsObject(id, time, title, url);
 
     }
 
